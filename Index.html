@@ -1,90 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Library Website</title>
-
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Bibliotheek Zoetermeer - Home</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <div class="nav-container">
-
-      <div class="nav-left">
-        <strong class="logo">Logo</strong>
-
-        <input 
-          type="text" 
-          id="search" 
-          placeholder="Search books..."
-        >
-
-        <nav>
-          <a href="#">home</a>
-          <a href="#">genre</a>
-          <a href="#">quiz</a>
-          <a href="#">history</a>
-        </nav>
-      </div>
-
-      <button id="login-btn" class="btn">Login</button>
-
+<header>
+    <div class="container header-content">
+        <div class="logo-wrapper">
+            <span class="logo-text">Bibliotheek</span>
+            <a href="index.html"><img src="./images/logo.png" alt="Logo" class="logo-img"></a>
+            <span class="logo-text">Zoetermeer</span>
+        </div>
+        <div class="nav-and-login">
+            <nav>
+                <a href="index.html" class="nav-item active">Home</a>
+                <a href="#genre-section" class="nav-item">Genre</a>
+                <a href="#quiz-section" class="nav-item">Quiz</a>
+            </nav>
+            <a href="login.html" class="btn">Login</a>
+        </div>
     </div>
-  </header>
+</header>
 
-  <main>
-
-    <section class="carousel-section">
-      <button id="prev" class="arrow-btn">&#10094;</button>
-
-      <div class="carousel-track">
-        <div class="card">
-          <div class="ad-box">Ad</div>
-          <p>title</p>
+<main class="container">
+    <section class="carousel-container">
+        <button id="prev" class="arrow-btn">&#10094;</button>
+        <div class="carousel-track-container">
+            <div class="carousel-track">
+                <div class="card"><div class="ad-box"><img src="./images/image.png"></div><p>Populair</p></div>
+                <div class="card"><div class="ad-box"><img src="./images/image2.webp"></div><p>Nieuw</p></div>
+                <div class="card"><div class="ad-box"><img src="./images/image3.jpg"></div><p>Aanrader</p></div>
+                <div class="card"><div class="ad-box"><img src="./images/image4.jpg"></div><p>Klassieker</p></div>
+                <div class="card"><div class="ad-box"><img src="./images/image5.jpg"></div><p>Spanning</p></div>
+            </div>
         </div>
-
-        <div class="card">
-          <div class="ad-box">Ad</div>
-          <p>title</p>
-        </div>
-
-        <div class="card">
-          <div class="ad-box">Ad</div>
-          <p>title</p>
-        </div>
-
-        <div class="card">
-          <div class="ad-box">Ad</div>
-          <p>title</p>
-        </div>
-      </div>
-
-      <button id="next" class="arrow-btn">&#10095;</button>
+        <button id="next" class="arrow-btn">&#10095;</button>
     </section>
 
-  </main>
+    <div class="section-divider"></div>
 
-  <footer>
-    <div class="footer-left">
-      <strong class="logo">Logo</strong>
-      <p>
-        Address:<br>
-        123 Main Street, City<br>
-        State Province, Country
-      </p>
-      <div class="socials">📷 📘 🐦</div>
+    <section id="genre-section" class="genre-main">
+        <h1 style="text-align:center; margin-bottom:30px;">ONZE GENRES</h1>
+        <div class="genre-grid">
+            <div class="genre-card"><span class="genre-icon">🧙‍♂️</span><h3>Fantasy</h3><button class="btn">Bekijk</button></div>
+            <div class="genre-card"><span class="genre-icon">🕵️‍♂️</span><h3>Thriller</h3><button class="btn">Bekijk</button></div>
+            <div class="genre-card"><span class="genre-icon">💖</span><h3>Romantiek</h3><button class="btn">Bekijk</button></div>
+            <div class="genre-card"><span class="genre-icon">🚀</span><h3>Sci-Fi</h3><button class="btn">Bekijk</button></div>
+            <div class="genre-card"><span class="genre-icon">🏛️</span><h3>Historie</h3><button class="btn">Bekijk</button></div>
+            <div class="genre-card"><span class="genre-icon">🧟</span><h3>Horror</h3><button class="btn">Bekijk</button></div>
+            <div class="genre-card"><span class="genre-icon">📖</span><h3>Biografie</h3><button class="btn">Bekijk</button></div>
+            <div class="genre-card"><span class="genre-icon">🎈</span><h3>Jeugd</h3><button class="btn">Bekijk</button></div>
+        </div>
+    </section>
+
+    <section id="quiz-section" style="padding: 60px 0;">
+        <div class="quiz-promo-card">
+            <div>
+                <h2>Weet je niet wat voor boeken je leuk vindt?</h2>
+                <p>Beantwoord onze vragen en ontdek je ideale genre.</p>
+                <a href="quiz.html" class="btn quiz-cta-btn">Neem nu de quiz!</a>
+            </div>
+            <div style="font-size: 80px;">❓</div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container footer-flex">
+        <div><strong>Library Zoetermeer</strong><p>Forum 6, Zoetermeer</p></div>
+        <div><strong>Contact</strong><p>info@library.nl</p></div>
     </div>
+</footer>
 
-    <div class="footer-right">
-      <strong>Contact us</strong>
-      <p>(number)</p>
-      <p>(email)</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
