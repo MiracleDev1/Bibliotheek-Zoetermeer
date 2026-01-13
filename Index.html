@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Website</title>
 
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+
+      <div class="nav-left">
+        <strong class="logo">Logo</strong>
+
+        <input 
+          type="text" 
+          id="search" 
+          placeholder="Search books..."
+        >
+
+        <nav>
+          <a href="#">home</a>
+          <a href="#">genre</a>
+          <a href="#">quiz</a>
+          <a href="#">history</a>
+        </nav>
+      </div>
+
+      <button id="login-btn" class="btn">Login</button>
+
+    </div>
+  </header>
+
+  <main>
+
+    <section class="carousel-section">
+      <button id="prev" class="arrow-btn">&#10094;</button>
+
+      <div class="carousel-track">
+        <div class="card">
+          <div class="ad-box">Ad</div>
+          <p>title</p>
+        </div>
+
+        <div class="card">
+          <div class="ad-box">Ad</div>
+          <p>title</p>
+        </div>
+
+        <div class="card">
+          <div class="ad-box">Ad</div>
+          <p>title</p>
+        </div>
+
+        <div class="card">
+          <div class="ad-box">Ad</div>
+          <p>title</p>
+        </div>
+      </div>
+
+      <button id="next" class="arrow-btn">&#10095;</button>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-left">
+      <strong class="logo">Logo</strong>
+      <p>
+        Address:<br>
+        123 Main Street, City<br>
+        State Province, Country
+      </p>
+      <div class="socials">📷 📘 🐦</div>
+    </div>
+
+    <div class="footer-right">
+      <strong>Contact us</strong>
+      <p>(number)</p>
+      <p>(email)</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
