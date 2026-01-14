@@ -11,11 +11,12 @@ body { font-family: 'Montserrat', sans-serif; background: #f9f9f9; color: #333; 
 .darkmode-btn {position: fixed;top: 20px;right: 20px;background: none;border: none;cursor: pointer;}
 body {transition: background-color 0.3s ease, color 0.3s ease;}
 
-/* Dark mode styles for header */
+/* Dark mode styles for header, footer and box*/ 
 .dark header {background: #535353; border-bottom: 1px solid #555;}
 .dark footer {background: #535353; border-bottom: 1px solid #555;}
 .dark .genre-card {background: #535353; border-bottom: 1px solid #555; border: 1px solid #555;}
 .dark .genre-card:hover {background: #535353; border-bottom: 1px solid #555; border: 1px solid #555;}
+.dark .quiz-box  {background: #535353; border-bottom: 1px solid #555;}
 .dark .nav-item {color: white;}
 .dark .logo-text {color: white;}
 
