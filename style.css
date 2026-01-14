@@ -36,13 +36,8 @@ body {transition: background-color 0.3s ease, color 0.3s ease;}
 .dark .logo-text {color: white;}
 
 /* --- KNOPPEN --- */
-.btn { 
-    background: #ff8c00; color: white !important; border: none; padding: 12px 25px; 
-    border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; 
-    display: inline-block; transition: 0.3s; 
-}
+.btn { background: #ff8c00; color: white !important; border: none; padding: 12px 25px;  border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none;  display: inline-block; transition: 0.3s; }
 .btn:hover { background: #e67e00; transform: translateY(-2px); }
-
 
 /* --- CAROUSEL (HOME) --- */
 .carousel-container { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 60px 0; }
@@ -56,18 +51,12 @@ body {transition: background-color 0.3s ease, color 0.3s ease;}
 /* --- GENRE GRID --- */
 .genre-main { padding: 60px 0; }
 .genre-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
-.genre-card { 
-    background: white; padding: 40px 20px; border-radius: 15px; text-align: center; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; 
-}
+.genre-card {  background: white; padding: 40px 20px; border-radius: 15px; text-align: center;  box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; }
 .genre-card:hover { transform: translateY(-10px); border-color: #ff8c00; }
 .genre-icon { font-size: 3.5rem; display: block; margin-bottom: 15px; }
 
 /* --- QUIZ PROMO & BOX --- */
-.quiz-promo-card { 
-    background: linear-gradient(135deg, #ff8c00 0%, #ff5f00 100%); color: white; 
-    padding: 60px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; 
-}
+.quiz-promo-card { background: linear-gradient(135deg, #ff8c00 0%, #ff5f00 100%); color: white;  padding: 60px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; }
 .quiz-cta-btn { margin-top: 30px; background: white !important; color: #ff8c00 !important; border-radius: 50px; }
 .quiz-box { max-width: 700px; margin: 50px auto; background: white; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 .progress-bar { width: 100%; background: #eee; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 20px; }
@@ -92,8 +81,7 @@ footer { background: white; padding: 40px 0; border-top: 4px solid #ff8c00; marg
 .footer-flex > div:nth-child(3) { order: 3; }
 .section-divider { border: 0; height: 4px; background: #ff8c00; width: 100px; margin: 40px auto; }
 
-/* --- FOOTER Socials--- */
-
+/* --- FOOTER SOCIALS --- */
 .socials-containter{ display: flex; gap: 20px; }
 .socials-containter a{ background-color: white; padding: 1em; border-radius: 50%; height: 64px; width: 64px; box-sizing: border-box; flex-shrink: 0; display: grid; place-items: center; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05); }
 .socials-containter a svg{ height: 32px; }
