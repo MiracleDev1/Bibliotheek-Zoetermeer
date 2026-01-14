@@ -4,21 +4,6 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Montserrat', sans-serif; background: #f9f9f9; color: #333; line-height: 1.6; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* --- darkmode --- */
-.dark { background-color: #303030;color: white; }
-.darkmode-icon {width: 32px;height: 32px;filter: invert(0); /* zwart */transition: filter 0.3s ease;}
-.dark .darkmode-icon {filter: invert(1);}
-.darkmode-btn {position: fixed;top: 20px;right: 20px;background: none;border: none;cursor: pointer;}
-body {transition: background-color 0.3s ease, color 0.3s ease;}
-
-/* Dark mode styles for header, footer and box*/ 
-.dark header {background: #535353; border-bottom: 1px solid #555;}
-.dark footer {background: #535353; border-bottom: 1px solid #555;}
-.dark .genre-card {background: #535353; border-bottom: 1px solid #555; border: 1px solid #555;}
-.dark .genre-card:hover {background: #535353; border-bottom: 1px solid #555; border: 1px solid #555;}
-.dark .quiz-box  {background: #535353; border-bottom: 1px solid #555;}
-.dark .nav-item {color: white;}
-.dark .logo-text {color: white;}
 
 /* --- HEADER & NAVIGATIE --- */
 header { background: #fff; border-bottom: 1px solid #ddd; height: 140px; display: flex; align-items: center; }
@@ -33,6 +18,22 @@ header { background: #fff; border-bottom: 1px solid #ddd; height: 140px; display
 nav { display: flex; gap: 15px; }
 .nav-item { color: #333; text-decoration: none; font-weight: bold; border-bottom: 3px solid transparent; }
 .nav-item:hover, .nav-item.active { border-bottom: 3px solid #ff8c00; }
+
+/* --- darkmode --- */
+.dark { background-color: #303030;color: white; }
+.darkmode-icon {width: 32px;height: 32px;filter: invert(0); /* zwart */transition: filter 0.3s ease;}
+.dark .darkmode-icon {filter: invert(1);}
+.darkmode-btn {position: fixed;top: 20px;right: 20px;background: none;border: none;cursor: pointer;}
+body {transition: background-color 0.3s ease, color 0.3s ease;}
+
+/* --- Dark mode styles for header, footer and box --- */ 
+.dark header {background: #535353; border-bottom: 1px solid #555;}
+.dark footer {background: #535353; border-bottom: 1px solid #555;}
+.dark .genre-card {background: #535353; border-bottom: 1px solid #555; border: 1px solid #555;}
+.dark .genre-card:hover {background: #535353; border-bottom: 1px solid #555; border: 1px solid #555;}
+.dark .quiz-box  {background: #535353; border-bottom: 1px solid #555;}
+.dark .nav-item {color: white;}
+.dark .logo-text {color: white;}
 
 /* --- KNOPPEN --- */
 .btn { 
