@@ -21,3 +21,10 @@ if (nextButton && prevButton) {
 function updateCarousel() {
     track.style.transform = `translateX(-${currentIndex * stepSize}px)`;
 }
+
+document.getElementById("darkmode-btn").click();
+
+function toggleMode(){
+    document.getElementById("body").
+    classList.toggle("dark");
+}

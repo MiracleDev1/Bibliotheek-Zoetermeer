@@ -4,6 +4,21 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Montserrat', sans-serif; background: #f9f9f9; color: #333; line-height: 1.6; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
+/* --- darkmode --- */
+.dark { background-color: #303030;color: white; }
+.darkmode-icon {width: 32px;height: 32px;filter: invert(0); /* zwart */transition: filter 0.3s ease;}
+.dark .darkmode-icon {filter: invert(1);}
+.darkmode-btn {position: fixed;top: 20px;right: 20px;background: none;border: none;cursor: pointer;}
+body {transition: background-color 0.3s ease, color 0.3s ease;}
+
+/* Dark mode styles for header */
+.dark header {background: #535353; border-bottom: 1px solid #555;}
+.dark footer {background: #535353; border-bottom: 1px solid #555;}
+.dark .genre-card {background: #535353; border-bottom: 1px solid #555; border: 1px solid #555;}
+.dark .genre-card:hover {background: #535353; border-bottom: 1px solid #555; border: 1px solid #555;}
+.dark .nav-item {color: white;}
+.dark .logo-text {color: white;}
+
 /* --- HEADER & NAVIGATIE --- */
 header { background: #fff; border-bottom: 1px solid #ddd; height: 140px; display: flex; align-items: center; }
 .header-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
@@ -11,6 +26,7 @@ header { background: #fff; border-bottom: 1px solid #ddd; height: 140px; display
 .logo-img { height: 80px; transition: 0.3s; }
 .logo-img:hover { transform: scale(1.05); }
 .logo-text { font-size: 18px; font-weight: 700; text-transform: uppercase; }
+
 
 .nav-and-login { display: flex; align-items: center; gap: 20px; }
 nav { display: flex; gap: 15px; }
@@ -24,6 +40,7 @@ nav { display: flex; gap: 15px; }
     display: inline-block; transition: 0.3s; 
 }
 .btn:hover { background: #e67e00; transform: translateY(-2px); }
+
 
 /* --- CAROUSEL (HOME) --- */
 .carousel-container { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 60px 0; }
