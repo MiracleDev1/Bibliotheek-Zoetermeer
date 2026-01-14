@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Bibliotheek Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo-wrapper">
+                <a href="index.html" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
+                <span class="logo-text">Terug naar Home</span>
+                <body id="body"><button class="darkmode-btn" onclick="toggleMode()"><img class="darkmode-icon" src="images/darkmode.icon.png" alt="DarkMode"></button><script src="script.js"></script>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="quiz-box">
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+            <p id="counter">Vraag 1 van 50</p>
+            <h2 id="question" style="margin: 20px 0;">Laden...</h2>
+            <div id="options" class="options-grid"></div>
+            <button id="next-btn" class="btn" style="width:100%;" disabled>Volgende</button>
+
+            <div id="result" style="display:none;">
+                <h2 style="color:#ff8c00;">Jouw ideale genre:</h2>
+                <h1 id="genre-match" style="font-size: 40px; margin: 20px 0;">...</h1>
+                <p id="genre-desc"></p><br>
+                <a href="index.html" class="btn">Naar de collectie</a>
+            </div>
+        </div>
+    </main>
+    <script src="quiz.js"></script>
+</body>
+</html>
