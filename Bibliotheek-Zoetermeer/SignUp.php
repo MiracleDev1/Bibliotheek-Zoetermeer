@@ -1,75 +1,93 @@
 <?php
+// Session starten
+// Dit is nodig om later te kunnen onthouden dat iemand is ingelogd
 session_start();
 
-/* DB settings */
-$host = "localhost";
-$db   = "bibliotheek";
-$user = "root";
-$pass = "";
-$charset = "utf8mb4";
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
-/* DB connect */
+// Gegevens om verbinding te maken met de MySQL database
+// Deze informatie zegt tegen PHP: waar is de database en hoe kom ik erin
+$host = "localhost";      // De computer waar de database draait
+$db   = "bibliotheek";    // Naam van de database
+$user = "root";           // Gebruikersnaam van MySQL
+$pass = "";               // Wachtwoord van MySQL (vaak leeg bij localhost)
+
+
+// Proberen verbinding te maken met de database
+// Als dit mislukt, stopt de pagina
 try {
-    $pdo = new PDO($dsn, $user, $pass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 } catch (PDOException $e) {
     die("Database verbinding mislukt");
 }
 
-/* Als al ingelogd -> dashboard */
+
+// Check of de gebruiker al is ingelogd
+// Als er al een user_id in de session staat, hoeft registreren niet
 if (isset($_SESSION["user_id"])) {
     header("Location: dashboard.php");
     exit;
 }
 
+
+// Variabelen om foutmeldingen in op te slaan
 $error = "";
 $success = "";
 
-/* Signup verwerken */
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $email = strtolower(trim($_POST["email"] ?? ""));
-    $password = $_POST["password"] ?? "";
-    $password2 = $_POST["password2"] ?? "";
 
-    // Basis checks
-    if ($email === "" || $password === "" || $password2 === "") {
-        $error = "Vul alle velden in.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = "Vul een geldig e-mailadres in.";
-    } elseif (strlen($password) < 6) {
-        $error = "Wachtwoord moet minimaal 6 tekens zijn.";
-    } elseif ($password !== $password2) {
-        $error = "Wachtwoorden komen niet overeen.";
+// Alleen uitvoeren als iemand het formulier heeft verstuurd
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // De ingevulde waarden uit het formulier ophalen
+    // Dit zijn de inputs met name="email", name="password" en name="password2"
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $password2 = $_POST["password2"];
+
+    // Controleren of alle velden zijn ingevuld
+    if ($email == "" || $password == "" || $password2 == "") {
+
+        $error = "Vul alle velden in";
+
+    // Controleren of beide wachtwoorden hetzelfde zijn
+    } elseif ($password != $password2) {
+
+        $error = "Wachtwoorden komen niet overeen";
+
     } else {
-        // Bestaat email al?
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
-        $stmt->execute(["email" => $email]);
-        $exists = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($exists) {
-            $error = "Dit e-mailadres is al geregistreerd.";
+        // Kijken of dit e-mailadres al in de database staat
+        // We zoeken een gebruiker met dit email adres
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+
+        // Als er iets wordt gevonden, bestaat de gebruiker al
+        $user = $stmt->fetch();
+
+        if ($user) {
+
+            // Email bestaat al, dus niet opnieuw registreren
+            $error = "Dit e-mailadres bestaat al";
+
         } else {
-            // Wachtwoord opslaan
-            $stmt = $pdo->prepare("INSERT INTO users (email, password_hash) VALUES (:email, :password)");
-            $stmt->execute([
-                "email" => $email,
-                "password" => $password
-            ]);
 
-            // Optie A: direct inloggen
-            $newId = $pdo->lastInsertId();
-            $_SESSION["user_id"] = $newId;
+            // Nieuwe gebruiker toevoegen aan de database
+            // Email en wachtwoord worden opgeslagen
+            $stmt = $pdo->prepare("INSERT INTO users (email, password_hash) VALUES (?, ?)");
+            $stmt->execute([$email, $password]);
+
+            // De nieuwe gebruiker direct inloggen
+            // lastInsertId geeft het id van de nieuwe gebruiker
+            $_SESSION["user_id"] = $pdo->lastInsertId();
             $_SESSION["email"] = $email;
 
+            // Na registreren doorsturen naar het dashboard
             header("Location: dashboard.php");
             exit;
-            
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>

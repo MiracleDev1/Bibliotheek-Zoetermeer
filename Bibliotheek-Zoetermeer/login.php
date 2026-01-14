@@ -1,59 +1,81 @@
 <?php
+// Session starten
+// Dit zorgt ervoor dat PHP kan onthouden wie is ingelogd
+// Zonder session kun je geen login bijhouden
 session_start();
 
-/* Simpele login (plain password in DB) */
-$host = "localhost";
-$db   = "bibliotheek";
-$user = "root";
-$pass = "";
-$charset = "utf8mb4";
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
-/* DB connect */
+// Gegevens die nodig zijn om verbinding te maken met de database
+// PHP gebruikt deze informatie om te weten waar de database staat
+$host = "localhost";      // De server waarop de database draait
+$db   = "bibliotheek";    // De naam van de database
+$user = "root";           // MySQL gebruikersnaam
+$pass = "";               // MySQL wachtwoord
+
+
+// Verbinding maken met de database
+// Als dit niet lukt, stopt de pagina meteen
 try {
-    $pdo = new PDO($dsn, $user, $pass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 } catch (PDOException $e) {
-    die("Database verbinding mislukt");
+    die("Kan geen verbinding maken met de database");
 }
 
-/* Als al ingelogd -> dashboard */
+
+// Controleren of de gebruiker al is ingelogd
+// Als er al een user_id bestaat, hoeft de login niet opnieuw
 if (isset($_SESSION["user_id"])) {
     header("Location: dashboard.php");
     exit;
 }
 
+
+// Variabele om foutmeldingen in op te slaan
 $error = "";
 
-/* Login verwerken */
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $email = strtolower(trim($_POST["email"] ?? ""));
-    $password = $_POST["password"] ?? "";
+// Deze code wordt alleen uitgevoerd als het loginformulier is verstuurd
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if ($email === "" || $password === "") {
-        $error = "Vul e-mail en wachtwoord in.";
+    // De ingevulde waarden uit het formulier ophalen
+    // Dit zijn de inputvelden met name="email" en name="password"
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Controleren of beide velden zijn ingevuld
+    if ($email == "" || $password == "") {
+
+        $error = "Vul e-mail en wachtwoord in";
+
     } else {
-        /* User ophalen */
-        $stmt = $pdo->prepare("SELECT id, email, password_hash FROM users WHERE email = :email LIMIT 1");
-        $stmt->execute(["email" => $email]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        /* Belangrijk: alleen inloggen als wachtwoord OOK klopt */
-        $passwordOk = ($row !== false) && hash_equals($row["password_hash"], $password);
+        // Zoeken naar een gebruiker met dit e-mailadres
+        // We halen het id, email en wachtwoord uit de database
+        $stmt = $pdo->prepare("SELECT id, email, password_hash FROM users WHERE email = ?");
+        $stmt->execute([$email]);
 
-        if ($passwordOk) {
-            $_SESSION["user_id"] = $row["id"];
-            $_SESSION["email"] = $row["email"];
+        // De gevonden gebruiker opslaan in een variabele
+        $user = $stmt->fetch();
+
+        // Controleren of de gebruiker bestaat en het wachtwoord klopt
+        if ($user && $user["password_hash"] == $password) {
+
+            // De gebruiker is ingelogd, dit slaan we op in de session
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["email"] = $user["email"];
+
+            // Na succesvol inloggen doorsturen naar dashboard
             header("Location: dashboard.php");
             exit;
+
         } else {
-            $error = "Onjuiste e-mail of wachtwoord.";
+            // Als de gebruiker niet bestaat of het wachtwoord fout is
+            $error = "Email of wachtwoord is fout";
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
