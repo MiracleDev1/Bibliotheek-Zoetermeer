@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <title>Bibliotheek Quiz</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="container header-content">
             <div class="logo-wrapper">
-                <a href="index.html" class="btn" style="border-radius:50%; width:40px; height:40px; padding:9px; padding-left: 15px;">&#10094;</a>
-                <span class="logo-text">Terug naar Home</span>
-                <body id="body"><button class="darkmode-btn" onclick="toggleMode()"><img class="darkmode-icon" src="images/darkmode.icon.png" alt="DarkMode"></button><script src="script.js"></script>
+                <a href="javascript:history.back()" class="btn" style="border-radius:50%; width:40px; height:40px; padding:0; display:flex; align-items:center; justify-content:center;">&#10094;</a>
+                <span class="logo-text">Terug</span>
+            </div>
+            <div class="nav-and-login">
+                <nav>
+                    <a href="index.html" class="nav-item">Home</a>
+                    <a href="index.html#genre-section" class="nav-item">Genre</a>
+                    <a href="quiz.html" class="nav-item active">Quiz</a>
+                    <a href="contact.html" class="nav-item">Contact</a>
+                </nav>
+                <a href="login.html" class="btn">Login</a>
             </div>
         </div>
     </header>
@@ -19,7 +28,7 @@
     <main class="container">
         <div class="quiz-box">
             <div class="progress-bar"><div id="progress-fill"></div></div>
-            <p id="counter">Vraag 1 van 50</p>
+            <p id="counter">Vraag 1 van 5</p>
             <h2 id="question" style="margin: 20px 0;">Laden...</h2>
             <div id="options" class="options-grid"></div>
             <button id="next-btn" class="btn" style="width:100%;" disabled>Volgende</button>

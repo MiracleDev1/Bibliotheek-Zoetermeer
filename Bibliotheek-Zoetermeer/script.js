@@ -1,30 +1,41 @@
+const nightModeBtn = document.getElementById('night-mode-toggle');
+const body = document.body;
+
+if (localStorage.getItem('nightMode') === 'enabled') {
+    body.classList.add('dark-mode');
+    if(nightModeBtn) nightModeBtn.textContent = '☀️';
+}
+
+if(nightModeBtn) {
+    nightModeBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            nightModeBtn.textContent = '☀️';
+            localStorage.setItem('nightMode', 'enabled');
+        } else {
+            nightModeBtn.textContent = '🌙';
+            localStorage.setItem('nightMode', 'disabled');
+        }
+    });
+}
+
+// Carousel code
 const track = document.querySelector('.carousel-track');
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
 const cards = document.querySelectorAll('.card');
 
-let currentIndex = 0;
-const stepSize = 280; // Breedte kaart + gap
+if (track && nextButton && prevButton) {
+    let currentIndex = 0;
+    const stepSize = 280; 
 
-if (nextButton && prevButton) {
     nextButton.onclick = () => {
         currentIndex = (currentIndex < cards.length - 3) ? currentIndex + 1 : 0;
-        updateCarousel();
+        track.style.transform = `translateX(-${currentIndex * stepSize}px)`;
     };
 
     prevButton.onclick = () => {
         currentIndex = (currentIndex > 0) ? currentIndex - 1 : cards.length - 3;
-        updateCarousel();
+        track.style.transform = `translateX(-${currentIndex * stepSize}px)`;
     };
-}
-
-function updateCarousel() {
-    track.style.transform = `translateX(-${currentIndex * stepSize}px)`;
-}
-
-document.getElementById("darkmode-btn").click();
-
-function toggleMode(){
-    document.getElementById("body").
-    classList.toggle("dark");
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - Bibliotheek Zoetermeer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <div class="container header-content">
+        <div class="logo-wrapper">
+            <span class="logo-text">Bibliotheek</span>
+            <a href="index.html"><img src="./images/logo.png" alt="Logo" class="logo-img"></a>
+            <span class="logo-text">Zoetermeer</span>
+        </div>
+        <div class="nav-and-login">
+            <nav>
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="index.html#genre-section" class="nav-item">Genre</a>
+                <a href="quiz.html" class="nav-item">Quiz</a>
+                <a href="contact.html" class="nav-item active">Contact</a>
+            </nav>
+            <a href="login.html" class="btn">Login</a>
+            <button id="night-mode-toggle" class="night-btn">🌙</button>
+        </div>
+    </div>
+</header>
+
+<div class="contact-hero">
+    <h1>Contact</h1>
+    <p>Neem contact met ons op. We helpen u graag!</p>
+</div>
+
+<main class="container">
+    <div class="contact-grid">
+        <div class="info-card">
+            <h3>Bibliotheek Zoetermeer</h3>
+            <img src="./images/books-shelf.jpg" alt="Boeken" style="width:100%; border-radius:8px; margin: 15px 0;">
+            <p><strong>📍 Adres</strong><br>Forum tz. Zoetermeer<br>Stadhuisplein 1<br>2711 ER Zoetermeer</p>
+            <p><strong>📞 Telefoon</strong><br>+31 79 342 4242</p>
+            <p><strong>✉️ Email</strong><br>info@library.nl</p>
+        </div>
+
+        <div class="form-card">
+            <h3>Stuur ons een bericht</h3>
+            <form>
+                <label>Naam *</label><input type="text" placeholder="Uw naam">
+                <label>Email *</label><input type="email" placeholder="uw.email@example.com">
+                <label>Onderwerp *</label><input type="text" placeholder="Onderwerp van uw bericht">
+                <label>Bericht *</label><textarea rows="5" placeholder="Typ hier uw bericht..."></textarea>
+                <button type="submit" class="btn" style="width:100%">Verstuur bericht</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
