@@ -1,7 +1,8 @@
 <?php
 // Session starten
 // Dit is nodig om later te kunnen onthouden dat iemand is ingelogd
-session_start();
+
+//session_start();
 
 
 // Gegevens om verbinding te maken met de MySQL database
@@ -16,7 +17,7 @@ $pass = "";               // Wachtwoord van MySQL (vaak leeg bij localhost)
 // Als dit mislukt, stopt de pagina
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-} catch (PDOException $e) {
+} catch (PDOException) {
     die("Database verbinding mislukt");
 }
 
@@ -24,7 +25,7 @@ try {
 // Check of de gebruiker al is ingelogd
 // Als er al een user_id in de session staat, hoeft registreren niet
 if (isset($_SESSION["user_id"])) {
-    header("Location: dashboard.php");
+    header("Location: ../html/index.html");
     exit;
 }
 
@@ -93,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Bibliotheek Zoetermeer - Registreren</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <header>
@@ -101,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="logo-wrapper">
             <a href="index.html" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
             <span class="logo-text">Bibliotheek</span>
-            <a href="index.html"><img src="./images/logo.png" alt="Logo" class="logo-img"></a>
+            <a href="index.html"><img src="../images/logo.png" alt="Logo" class="logo-img"></a>
             <span class="logo-text">Zoetermeer</span>
         </div>
     </div>

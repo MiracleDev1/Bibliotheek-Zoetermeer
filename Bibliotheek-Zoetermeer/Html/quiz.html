@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Bibliotheek Quiz</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo-wrapper">
+                <a href="javascript:history.back()" class="btn" style="border-radius:50%; width:40px; height:40px; padding:0; display:flex; align-items:center; justify-content:center;">&#10094;</a>
+                <span class="logo-text">Terug</span>
+            </div>
+            <div class="nav-and-login">
+                <nav>
+                    <a href="index.html" class="nav-item">Home</a>
+                    <a href="index.html#genre-section" class="nav-item">Genre</a>
+                    <a href="quiz.html" class="nav-item active">Quiz</a>
+                    <a href="contact.html" class="nav-item">Contact</a>
+                </nav>
+                <a href="../Php/login.php" class="btn">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="quiz-box">
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+            <p id="counter">Vraag 1 van 5</p>
+            <h2 id="question" style="margin: 20px 0;">Laden...</h2>
+            <div id="options" class="options-grid"></div>
+            <button id="next-btn" class="btn" style="width:100%;" disabled>Volgende</button>
+
+            <div id="result" style="display:none;">
+                <h2 style="color:#ff8c00;">Jouw ideale genre:</h2>
+                <h1 id="genre-match" style="font-size: 40px; margin: 20px 0;">...</h1>
+                <p id="genre-desc"></p><br>
+                <a href="index.html" class="btn">Naar de collectie</a>
+            </div>
+        </div>
+    </main>
+    <script src="../Js/quiz.js"></script>
+</body>
+</html>
