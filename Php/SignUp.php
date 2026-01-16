@@ -81,8 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["user_id"] = $pdo->lastInsertId();
             $_SESSION["email"] = $email;
 
-            // Na registreren doorsturen naar het dashboard
-            header("Location: dashboard.php");
+            // Na registreren doorsturen 
+            header("Location: ../html/index.html");
             exit;
         }
     }
@@ -100,10 +100,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <header>
     <div class="container header-content">
         <div class="logo-wrapper">
-            <a href="index.html" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
-            <span class="logo-text">Bibliotheek</span>
-            <a href="index.html"><img src="../images/logo.png" alt="Logo" class="logo-img"></a>
-            <span class="logo-text">Zoetermeer</span>
+            <a href="../html/index.html" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
+            <a href="../html/index.html"><img src="../images/logo.png" alt="Logo" class="logo-img"></a>
         </div>
     </div>
 </header>

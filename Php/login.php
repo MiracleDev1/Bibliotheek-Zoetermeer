@@ -65,8 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["email"] = $user["email"];
 
-            // Na succesvol inloggen doorsturen naar dashboard
-            header("Location: dashboard.php");
+            // Na succesvol inloggen doorsturen 
+            header("Location: ../html/index.html");
             exit;
 
         } else {
@@ -89,9 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container header-content">
         <div class="logo-wrapper">
             <a href="../html/index.html" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
-            <span class="logo-text">Bibliotheek</span>
             <a href="../html/index.html"><img src="../images/logo.png" alt="Logo" class="logo-img"></a>
-            <span class="logo-text">Zoetermeer</span>
         </div>
     </div>
 </header>

@@ -1,9 +1,11 @@
-/* --- VARIABELEN & NIGHT MODE LOGICA --- */
+/* ================================
+   VARIABELEN & NIGHT MODE
+================================ */
 :root {
     --bg-body: #f9f9f9;
     --bg-card: #ffffff;
     --text-main: #333333;
-    --accent: #ff8c00; /* Oranje overdag */
+    --accent: #ff8c00;
     --header-bg: #ffffff;
     --border-color: #dddddd;
 }
@@ -12,111 +14,424 @@ body.dark-mode {
     --bg-body: #121212;
     --bg-card: #1e1e1e;
     --text-main: #e0e0e0;
-    --accent: #1a2a6c; /* Nachtblauw 's nachts */
+    --accent: #1a2a6c;
     --header-bg: #1a1a1a;
     --border-color: #333333;
 }
 
-/* --- BASIS --- */
-html { scroll-behavior: smooth; }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Montserrat', sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.6; transition: 0.3s; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-/* --- HEADER & NAVIGATIE --- */
-header { background: var(--header-bg); border-bottom: 1px solid var(--border-color); height: 140px; display: flex; align-items: center; transition: 0.3s; }
-.header-content { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-.logo-wrapper { display: flex; align-items: center; gap: 15px; }
-.logo-img { height: 80px; transition: 0.3s; }
-.logo-img:hover { transform: scale(1.05); }
-.logo-text { font-size: 18px; font-weight: 700; text-transform: uppercase; color: var(--text-main); }
-
-.nav-and-login { display: flex; align-items: center; gap: 20px; }
-nav { display: flex; gap: 15px; }
-.nav-item { color: var(--text-main); text-decoration: none; font-weight: bold; border-bottom: 3px solid transparent; padding-bottom: 5px; }
-.nav-item:hover, .nav-item.active { border-bottom: 3px solid var(--accent); }
-
-/* --- NIGHTMODE KNOP --- */
-.night-btn { background: none; border: none; font-size: 24px; cursor: pointer; transition: 0.3s; margin-left: 5px; }
-
-/* --- KNOPPEN --- */
-.btn { 
-    background: var(--accent); color: white !important; border: none; padding: 12px 25px; 
-    border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; 
-    display: inline-block; transition: 0.3s; text-align: center;
+/* ================================
+   BASIS STYLES
+================================ */
+html {
+    scroll-behavior: smooth;
 }
-.btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
-/* --- CAROUSEL (HOME) --- */
-.carousel-container { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 60px 0; }
-.carousel-track-container { width: 850px; overflow: hidden; }
-.carousel-track { display: flex; gap: 30px; transition: 0.4s ease; }
-.card { width: 250px; text-align: center; flex-shrink: 0; }
-.ad-box { height: 350px; background: #444; border-radius: 12px; overflow: hidden; cursor: pointer; }
-.ad-box img { width: 100%; height: 100%; object-fit: cover; }
-.arrow-btn { background: var(--accent); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; }
-
-/* --- GENRE GRID --- */
-.genre-main { padding: 60px 0; }
-.genre-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
-.genre-card { 
-    background: var(--bg-card); padding: 40px 20px; border-radius: 15px; text-align: center; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid var(--border-color); 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-.genre-card:hover { transform: translateY(-10px); border-color: var(--accent); }
-.genre-icon { font-size: 3.5rem; display: block; margin-bottom: 15px; }
 
-/* --- QUIZ PROMO & BOX --- */
-.quiz-promo-card { 
-    background: var(--accent); color: white; 
-    padding: 60px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; 
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
     transition: 0.3s;
 }
-.quiz-cta-btn { margin-top: 30px; background: white !important; color: var(--accent) !important; border-radius: 50px; }
-.quiz-box { max-width: 700px; margin: 50px auto; background: var(--bg-card); padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-.progress-bar { width: 100%; background: #eee; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 20px; }
-#progress-fill { height: 100%; background: var(--accent); width: 20%; transition: 0.3s; }
-.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
-.option-btn { padding: 15px; border: 2px solid var(--border-color); border-radius: 8px; background: var(--bg-card); color: var(--text-main); cursor: pointer; font-weight: bold; }
-.option-btn.selected { background: var(--accent); color: white; border-color: var(--accent); }
 
-/* --- LOGIN PAGINA --- */
-.login-wrapper-main { display: flex; justify-content: center; padding: 60px 0; }
-.login-card { background: var(--bg-card); padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 420px; text-align: center; border-top: 6px solid var(--accent); }
-.form-group { text-align: left; margin-bottom: 20px; }
-.form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
-.form-group input { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; outline: none; background: var(--bg-body); color: var(--text-main); }
-.form-group input:focus { border-color: var(--accent); }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-/* --- CONTACT PAGINA (FIXED) --- */
-.contact-hero { background: #333; color: white; padding: 60px 0; text-align: center; }
-.contact-grid { 
-    display: grid; 
-    grid-template-columns: 1fr 1.5fr; /* Linker kolom smaller, rechter kolom breder */
-    gap: 40px; 
-    margin: 40px auto; 
-    padding-bottom: 50px; 
-    align-items: start;
+/* ================================
+   HEADER & NAVIGATIE
+================================ */
+header {
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    height: 140px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
 }
-.info-card, .form-card { 
-    background: var(--bg-card); 
-    padding: 30px; 
-    border-radius: 12px; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-    border: 1px solid var(--border-color); 
-}
-.form-card input, .form-card textarea {
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    padding: 12px;
-    margin: 8px 0 20px 0;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    height: 80px;
+    transition: 0.3s;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.nav-and-login {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-item {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 3px solid transparent;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    border-bottom-color: var(--accent);
+}
+
+/* ================================
+   NIGHT MODE KNOP
+================================ */
+.night-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: 0.3s;
+}
+
+/* ================================
+   KNOPPEN
+================================ */
+.btn {
+    background: var(--accent);
+    color: white !important;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* ================================
+   CAROUSEL
+================================ */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 60px 0;
+}
+
+.carousel-track-container {
+    width: 850px;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 30px;
+    transition: 0.4s ease;
+}
+
+
+/* ================================
+   CAROUSEL PROGRESS STREEP
+   (plak dit in je CSS)
+================================ */
+.carousel-progress {
+    width: 850px;
+    height: 10px;
+    margin: 18px auto 0;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+body.dark-mode .carousel-progress {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.carousel-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.25s ease;
+}
+
+
+.card {
+    width: 250px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.ad-box {
+    height: 350px;
+    background: #444;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.ad-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.arrow-btn {
+    width: 50px;
+    height: 50px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* ================================
+   GENRE GRID
+================================ */
+.genre-main {
+    padding: 60px 0;
+}
+
+.genre-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.genre-card {
+    background: var(--bg-card);
+    padding: 40px 20px;
+    border-radius: 15px;
+    text-align: center;
     border: 1px solid var(--border-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+}
+
+.genre-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+}
+
+.genre-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* ================================
+   QUIZ
+================================ */
+.quiz-promo-card {
+    background: var(--accent);
+    color: white;
+    padding: 60px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.quiz-cta-btn {
+    margin-top: 30px;
+    background: white !important;
+    color: var(--accent) !important;
+    border-radius: 50px;
+}
+
+.quiz-box {
+    max-width: 700px;
+    margin: 50px auto;
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    height: 12px;
+    width: 100%;
+    background: #eee;
     border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#progress-fill {
+    height: 100%;
+    width: 20%;
+    background: var(--accent);
+    transition: 0.3s;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.option-btn {
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-main);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.option-btn.selected {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+/* ================================
+   LOGIN
+================================ */
+.login-wrapper-main {
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+}
+
+.login-card {
+    max-width: 420px;
+    width: 100%;
+    padding: 40px;
+    background: var(--bg-card);
+    border-radius: 15px;
+    border-top: 6px solid var(--accent);
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
     background: var(--bg-body);
     color: var(--text-main);
 }
 
-/* --- FOOTER --- */
-footer { background: var(--bg-card); padding: 40px 0; border-top: 4px solid var(--accent); margin-top: 50px; transition: 0.3s; }
-.footer-flex { display: flex; justify-content: space-between; }
-.section-divider { border: 0; border-radius: 10px; height: 7px; background: var(--accent); width: 700px; margin: 40px auto; }
+.form-group input:focus {
+    border-color: var(--accent);
+}
 
+/* ================================
+   CONTACT
+================================ */
+.contact-hero {
+    background: #333;
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    margin: 40px auto;
+    padding-bottom: 50px;
+}
+
+.info-card,
+.form-card {
+    padding: 30px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-card input,
+.form-card textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-body);
+    color: var(--text-main);
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+    background: var(--bg-card);
+    padding: 40px 0;
+    margin-top: 50px;
+    border-top: 4px solid var(--accent);
+    transition: 0.3s;
+}
+
+.footer-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-divider {
+    width: 700px;
+    height: 7px;
+    margin: 40px auto;
+    background: var(--accent);
+    border-radius: 10px;
+    border: none;
+}
