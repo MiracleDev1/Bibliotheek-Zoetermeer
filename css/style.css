@@ -376,12 +376,44 @@ body.dark-mode .carousel-progress {
 /* ================================
    CONTACT
 ================================ */
+/* ===== CONTACT HERO (IMAGE SOURCE) ===== */
 .contact-hero {
-    background: #333;
-    color: white;
-    padding: 60px 0;
+    position: relative;
+    min-height: 60vh;
+
+    background-image: url("../images/forum.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    padding: 140px 0 60px; /* space for header */
     text-align: center;
+    color: white;
 }
+
+/* ===== HEADER OVER IMAGE ===== */
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+
+    /* no background image here */
+    background: transparent;
+}
+
+/* white translucent layer INSIDE header */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.65);
+    z-index: -1;
+    pointer-events: none;
+}
+
+
 
 .contact-grid {
     display: grid;
