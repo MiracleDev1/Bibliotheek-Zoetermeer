@@ -50,7 +50,6 @@ body {
    HEADER & NAVIGATIE
 ================================ */
 header {
-    background: var(--header-bg);
     border-bottom: 1px solid var(--border-color);
     height: 140px;
     display: flex;
@@ -104,6 +103,7 @@ nav {
     font-weight: bold;
     padding-bottom: 5px;
     border-bottom: 3px solid transparent;
+    transition: 0.3s;
 }
 
 .nav-item:hover,
@@ -167,11 +167,6 @@ nav {
     transition: 0.4s ease;
 }
 
-
-/* ================================
-   CAROUSEL PROGRESS STREEP
-   (plak dit in je CSS)
-================================ */
 .carousel-progress {
     width: 850px;
     height: 10px;
@@ -192,7 +187,6 @@ body.dark-mode .carousel-progress {
     border-radius: 999px;
     transition: width 0.25s ease;
 }
-
 
 .card {
     width: 250px;
@@ -280,55 +274,6 @@ body.dark-mode .carousel-progress {
     border-radius: 50px;
 }
 
-.quiz-box {
-    max-width: 700px;
-    margin: 50px auto;
-    background: var(--bg-card);
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.progress-bar {
-    height: 12px;
-    width: 100%;
-    background: #eee;
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-#progress-fill {
-    height: 100%;
-    width: 20%;
-    background: var(--accent);
-    transition: 0.3s;
-}
-
-.options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin: 25px 0;
-}
-
-.option-btn {
-    padding: 15px;
-    border-radius: 8px;
-    border: 2px solid var(--border-color);
-    background: var(--bg-card);
-    color: var(--text-main);
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.option-btn.selected {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-}
-
 /* ================================
    LOGIN
 ================================ */
@@ -374,47 +319,60 @@ body.dark-mode .carousel-progress {
 }
 
 /* ================================
-   CONTACT
+   CONTACT HERO
 ================================ */
-/* ===== CONTACT HERO (IMAGE SOURCE) ===== */
 .contact-hero {
     position: relative;
-    min-height: 60vh;
+    min-height: 50vh;
 
     background-image: url("../images/forum.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
-    padding: 140px 0 60px; /* space for header */
+    padding: 190px 0 60px; /* space for header */
     text-align: center;
     color: white;
 }
 
-/* ===== HEADER OVER IMAGE ===== */
-header {
+/* ===== HEADER ON CONTACT PAGE ===== */
+.contact-page header {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 10;
 
-    /* no background image here */
-    background: transparent;
+    background: rgba(255, 255, 255, 0.65); /* light transparent */
+    color: #222;
+    backdrop-filter: blur(6px);
 }
 
-/* white translucent layer INSIDE header */
-header::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.65);
-    z-index: -1;
-    pointer-events: none;
+/* ===== DARK MODE HEADER ===== */
+.contact-page.dark-mode header {
+    background: rgba(0, 0, 0, 0.8); /* darker transparent */
+    color: #fff;
 }
 
+/* ===== DARK MODE NAV ITEMS ===== */
+.contact-page.dark-mode .nav-item {
+    color: #fff;
+}
 
+.contact-page.dark-mode .nav-item:hover,
+.contact-page.dark-mode .nav-item.active {
+    border-bottom-color: var(--accent);
+}
 
+/* ===== CONTACT HERO TEXT ABOVE OVERLAY ===== */
+.contact-hero > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* ================================
+   CONTACT GRID
+================================ */
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -459,6 +417,9 @@ footer {
     justify-content: space-between;
 }
 
+/* ================================
+   SECTION DIVIDER
+================================ */
 .section-divider {
     width: 700px;
     height: 7px;
@@ -468,6 +429,9 @@ footer {
     border: none;
 }
 
+/* ================================
+   MAP SECTION
+================================ */
 .map-section {
     padding: 60px 0;
     text-align: center;
@@ -483,4 +447,18 @@ footer {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* ================================
+   GLOBAL TRANSITIONS
+================================ */
+header,
+.nav-item,
+.logo-text,
+.btn,
+.contact-hero,
+footer,
+.card,
+.genre-card {
+    transition: 0.3s;
 }
