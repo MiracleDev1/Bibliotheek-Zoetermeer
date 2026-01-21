@@ -5,7 +5,8 @@ require_once "db.php";
 // Dit zorgt ervoor dat PHP kan onthouden wie is ingelogd
 // Zonder session kun je geen login bijhouden
 
-session_start();
+//session_start();
+session_destroy();
 
 // Controleren of de gebruiker al is ingelogd
 // Als er al een user_id bestaat, hoeft de login niet opnieuw
@@ -72,8 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <header>
     <div class="container header-content">
         <div class="logo-wrapper">
-            <a href="../html/index.php" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
-            <a href="../html/index.php"><img src="../images/logo.png" alt="Logo" class="logo-img"></a>
+            <a href="../html/index.html" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
+            <a href="../html/index.html"><img src="../images/logo.png" alt="Logo" class="logo-img"></a>
         </div>
     </div>
 </header>

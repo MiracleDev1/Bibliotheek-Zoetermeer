@@ -230,13 +230,15 @@ function showResult() {
 
   });
 
-  // Resultaat in HTML tonen
-  document.getElementById("quiz-container").innerHTML = `
+    // Resultaat in HTML tonen
+    document.getElementById("quiz-container").innerHTML = `
     <h2>Klaar!</h2>
     <p>Jouw ideale genre is:</p>
     <h1 style="color:var(--accent); margin:20px 0;">${winner}</h1>
-    <a href="${winner.toLowerCase()}.html" class="btn">Bekijk ${winner} boeken</a>
-  `;
+    <a href="genres/${winner.toLowerCase()}.html" class="btn">
+        Bekijk ${winner} boeken
+    </a>
+    `;
 }
 
 

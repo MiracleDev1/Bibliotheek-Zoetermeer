@@ -3,7 +3,8 @@
 require_once "db.php";
 // Dit is nodig om later te kunnen onthouden dat iemand is ingelogd
 
-session_start();
+//session_start();
+session_destroy();
 
 // Check of de gebruiker al is ingelogd
 // Als er al een user_id in de session staat, hoeft registreren niet
