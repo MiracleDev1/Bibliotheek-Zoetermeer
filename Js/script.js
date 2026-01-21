@@ -39,3 +39,4 @@ if (track && nextButton && prevButton) {
         track.style.transform = `translateX(-${currentIndex * stepSize}px)`;
     };
 }
+

@@ -1,26 +1,9 @@
 <?php
-// Session starten
+//de database verbinding
+require_once "db.php";
 // Dit is nodig om later te kunnen onthouden dat iemand is ingelogd
 
-//session_start();
-
-
-// Gegevens om verbinding te maken met de MySQL database
-// Deze informatie zegt tegen PHP: waar is de database en hoe kom ik erin
-$host = "localhost";      // De computer waar de database draait
-$db   = "bibliotheek";    // Naam van de database
-$user = "root";           // Gebruikersnaam van MySQL
-$pass = "";               // Wachtwoord van MySQL (vaak leeg bij localhost)
-
-
-// Proberen verbinding te maken met de database
-// Als dit mislukt, stopt de pagina
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-} catch (PDOException) {
-    die("Database verbinding mislukt");
-}
-
+session_start();
 
 // Check of de gebruiker al is ingelogd
 // Als er al een user_id in de session staat, hoeft registreren niet

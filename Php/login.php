@@ -1,27 +1,11 @@
 <?php
-// Session starten
+
+//de database verbinding
+require_once "db.php";
 // Dit zorgt ervoor dat PHP kan onthouden wie is ingelogd
 // Zonder session kun je geen login bijhouden
 
-//session_start();
-
-
-// Gegevens die nodig zijn om verbinding te maken met de database
-// PHP gebruikt deze informatie om te weten waar de database staat
-$host = "localhost";      // De server waarop de database draait
-$db   = "bibliotheek";    // De naam van de database
-$user = "root";           // MySQL gebruikersnaam
-$pass = "";               // MySQL wachtwoord
-
-
-// Verbinding maken met de database
-// Als dit niet lukt, stopt de pagina meteen
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-} catch (PDOException $e) {
-    die("Kan geen verbinding maken met de database");
-}
-
+session_start();
 
 // Controleren of de gebruiker al is ingelogd
 // Als er al een user_id bestaat, hoeft de login niet opnieuw
@@ -88,8 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <header>
     <div class="container header-content">
         <div class="logo-wrapper">
-            <a href="../html/index.html" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
-            <a href="../html/index.html"><img src="../images/logo.png" alt="Logo" class="logo-img"></a>
+            <a href="../html/index.php" class="btn" style="border-radius:50%; width:40px; height:40px; padding:10px;">&#10094;</a>
+            <a href="../html/index.php"><img src="../images/logo.png" alt="Logo" class="logo-img"></a>
         </div>
     </div>
 </header>

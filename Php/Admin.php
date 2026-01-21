@@ -1,92 +1,226 @@
 <?php
+// ------------------------------------------------------------
+// admin.php
+// Dit is de admin pagina waar je boeken kunt:
+// - bekijken
+// - toevoegen
+// - bewerken
+// - verwijderen
+// ------------------------------------------------------------
+
+
+// 1) Database verbinding (hierin staat meestal $pdo)
 require_once "db.php";
 
-/* ===== ACTIES ===== */
 
-// Verwijderen
+// ------------------------------------------------------------
+// =====  ACTIES  =====
+// Alles wat iets "verandert" in de database:
+// - delete (verwijderen)
+// - post (toevoegen/bewerken)
+// ------------------------------------------------------------
+
+
+// ----------------------
+// ACTIE 1: VERWIJDEREN
+// ----------------------
+// Als je in de URL ziet: admin.php?delete=5
+// dan willen we boek met id=5 verwijderen
 if (isset($_GET["delete"])) {
+
+    // id uit de URL halen en omzetten naar een nummer
+    $deleteId = (int)$_GET["delete"];
+
+    // SQL: verwijder boek met deze id
     $stmt = $pdo->prepare("DELETE FROM boeken WHERE id = ?");
-    $stmt->execute([(int)$_GET["delete"]]);
+    $stmt->execute([$deleteId]);
+
+    // Na verwijderen terug naar admin pagina
     header("Location: admin.php");
     exit;
 }
 
-// Opslaan (toevoegen / bewerken)
+
+// ----------------------
+// ACTIE 2: OPSLAAN (POST)
+// ----------------------
+// Dit kan 2 dingen zijn:
+// - Nieuw boek toevoegen
+// - Bestaand boek bewerken
 $error = "";
+
+// Alleen uitvoeren als het formulier is verstuurd (method="POST")
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    // Waarden ophalen uit het formulier
+    // trim() haalt spaties weg voor/achter
     $titel = trim($_POST["titel"] ?? "");
     $auteur = trim($_POST["auteur"] ?? "");
     $genre = trim($_POST["genre"] ?? "");
-    $jaar = ($_POST["jaar"] ?? "") !== "" ? (int)$_POST["jaar"] : null;
     $isbn = trim($_POST["isbn"] ?? "");
     $beschrijving = trim($_POST["beschrijving"] ?? "");
     $afbeelding_url = trim($_POST["afbeelding_url"] ?? "");
+
+    // Jaar: mag leeg zijn -> dan zetten we null
+    // (null = "geen waarde" in database)
+    $jaar = $_POST["jaar"] ?? "";
+    if ($jaar === "") {
+        $jaar = null;
+    } else {
+        $jaar = (int)$jaar;
+    }
+
+    // Checkbox: als aangevinkt -> bestaat hij in POST -> 1
+    // anders -> 0
     $is_beschikbaar = isset($_POST["is_beschikbaar"]) ? 1 : 0;
 
+    // Simpele check: verplichte velden
     if ($titel === "" || $auteur === "" || $isbn === "") {
         $error = "Vul titel, auteur en ISBN in.";
     } else {
-        // update of insert
+
+        // Kijken: zit er een id in het formulier?
+        // - JA: update (bewerken)
+        // - NEE: insert (toevoegen)
+
+        // ------- BEWERKEN -------
         if (!empty($_POST["id"])) {
+
             $id = (int)$_POST["id"];
-            $stmt = $pdo->prepare("
+
+            $sql = "
                 UPDATE boeken SET
-                    titel=?, auteur=?, genre=?, jaar=?, isbn=?,
-                    beschrijving=?, afbeelding_url=?, is_beschikbaar=?
-                WHERE id=?
-            ");
+                    titel = ?,
+                    auteur = ?,
+                    genre = ?,
+                    jaar = ?,
+                    isbn = ?,
+                    beschrijving = ?,
+                    afbeelding_url = ?,
+                    is_beschikbaar = ?
+                WHERE id = ?
+            ";
+
+            $stmt = $pdo->prepare($sql);
             $stmt->execute([
-                $titel, $auteur, $genre ?: null, $jaar, $isbn,
-                $beschrijving ?: null, $afbeelding_url ?: null, $is_beschikbaar, $id
+                $titel,
+                $auteur,
+                $genre === "" ? null : $genre,
+                $jaar,
+                $isbn,
+                $beschrijving === "" ? null : $beschrijving,
+                $afbeelding_url === "" ? null : $afbeelding_url,
+                $is_beschikbaar,
+                $id
             ]);
+
         } else {
-            $stmt = $pdo->prepare("
+
+            // ------- TOEVOEGEN -------
+            $sql = "
                 INSERT INTO boeken
-                    (titel,auteur,genre,jaar,isbn,beschrijving,afbeelding_url,is_beschikbaar)
-                VALUES (?,?,?,?,?,?,?,?)
-            ");
+                    (titel, auteur, genre, jaar, isbn, beschrijving, afbeelding_url, is_beschikbaar)
+                VALUES
+                    (?, ?, ?, ?, ?, ?, ?, ?)
+            ";
+
+            $stmt = $pdo->prepare($sql);
             $stmt->execute([
-                $titel, $auteur, $genre ?: null, $jaar, $isbn,
-                $beschrijving ?: null, $afbeelding_url ?: null, $is_beschikbaar
+                $titel,
+                $auteur,
+                $genre === "" ? null : $genre,
+                $jaar,
+                $isbn,
+                $beschrijving === "" ? null : $beschrijving,
+                $afbeelding_url === "" ? null : $afbeelding_url,
+                $is_beschikbaar
             ]);
         }
 
+        // Na opslaan terug naar admin pagina
         header("Location: admin.php");
         exit;
     }
 }
 
-/* ===== DATA ===== */
 
-// Popup open?
+// ------------------------------------------------------------
+// =====  DATA  =====
+// Alles wat we nodig hebben om te tonen in HTML:
+// - boeken lijst
+// - statistieken
+// - bepalen of popup open moet
+// - data voor het formulier (add/edit)
+// ------------------------------------------------------------
+
+
+// 1) Popup standaard dicht
 $showModal = false;
+
+// 2) Als je edit doet, zetten we hier het boek in
 $edit = null;
 
+
+// ----------------------
+// Popup openen voor "add"
+// ----------------------
+// URL: admin.php?add=1
 if (isset($_GET["add"])) {
     $showModal = true; // lege popup
 }
 
+
+// ----------------------
+// Popup openen voor "edit"
+// ----------------------
+// URL: admin.php?edit=5
 if (isset($_GET["edit"])) {
+
     $showModal = true;
-    $stmt = $pdo->prepare("SELECT * FROM boeken WHERE id=?");
-    $stmt->execute([(int)$_GET["edit"]]);
+
+    $editId = (int)$_GET["edit"];
+
+    // Boek ophalen dat je wilt bewerken
+    $stmt = $pdo->prepare("SELECT * FROM boeken WHERE id = ?");
+    $stmt->execute([$editId]);
+
+    // Resultaat opslaan
     $edit = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Als het boek niet bestaat -> terug naar admin
     if (!$edit) {
-        // als id niet bestaat -> terug
         header("Location: admin.php");
         exit;
     }
 }
 
+
+// ----------------------
+// Alle boeken ophalen
+// ----------------------
 $boeken = $pdo->query("SELECT * FROM boeken ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+
+// ----------------------
+// Statistieken berekenen
+// ----------------------
 $totaal = count($boeken);
+
 $beschikbaar = 0;
-foreach ($boeken as $b) {
-    if ((int)$b["is_beschikbaar"] === 1) $beschikbaar++;
+foreach ($boeken as $boek) {
+    if ((int)$boek["is_beschikbaar"] === 1) {
+        $beschikbaar++;
+    }
 }
+
 $uitgeleend = $totaal - $beschikbaar;
 
-// defaults voor form
+
+// ----------------------
+// Defaults voor het formulier
+// Als je edit -> zet waarden van dat boek erin
+// Als je add -> alles leeg (behalve beschikbaar = 1)
+// ----------------------
 $form = [
     "id" => $edit["id"] ?? "",
     "titel" => $edit["titel"] ?? "",
@@ -99,6 +233,7 @@ $form = [
     "is_beschikbaar" => isset($edit) ? (int)$edit["is_beschikbaar"] : 1
 ];
 ?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -107,160 +242,6 @@ $form = [
 
 <link rel="stylesheet" href="../css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-/* kleine extra's voor dashboard + popup, gebruikt jouw CSS variables */
-.admin-main { padding: 50px 0; }
-.admin-header-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    padding: 28px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    margin-bottom: 25px;
-}
-.admin-header-card h1 { margin:0; font-size: 34px; }
-.admin-header-card p { margin:6px 0 0; color: #666; }
-
-.stats-grid {
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-bottom: 25px;
-}
-.stat-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    padding: 22px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.stat-card .label { font-size: 14px; color:#666; }
-.stat-card .value { font-size: 34px; font-weight:700; margin-top:6px; }
-.stat-icon {
-    width:44px; height:44px; border-radius:10px;
-    display:flex; align-items:center; justify-content:center;
-    font-weight:700;
-}
-.icon-orange { background:#ffe9d5; color: var(--accent); }
-.icon-green { background:#dcfce7; color:#166534; }
-.icon-red { background:#fee2e2; color:#991b1b; }
-
-.panel {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    overflow:hidden;
-}
-.panel-head {
-    padding: 18px 22px;
-    border-bottom: 1px solid var(--border-color);
-    font-weight: 700;
-}
-.table-wrap { overflow-x:auto; }
-table { width:100%; border-collapse: collapse; }
-th, td { padding: 14px 12px; border-bottom: 1px solid var(--border-color); text-align:left; font-size: 14px; }
-th { background: #f6f6f6; font-weight:700; }
-body.dark-mode th { background: #1a1a1a; }
-
-.bookcell { display:flex; align-items:center; gap:12px; }
-.thumb {
-    width: 40px; height: 56px;
-    border-radius: 8px;
-    object-fit: cover;
-    border: 1px solid var(--border-color);
-    background: #eee;
-}
-.badge {
-    display:inline-block;
-    padding: 5px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-}
-.badge.ok { background:#dcfce7; color:#166534; }
-.badge.no { background:#fee2e2; color:#991b1b; }
-
-.actions { white-space:nowrap; }
-.iconbtn {
-    display:inline-block;
-    padding: 6px 10px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    text-decoration:none;
-    color: var(--text-main);
-    background: transparent;
-    margin-left: 6px;
-}
-.iconbtn:hover { border-color: var(--accent); }
-
-/* ===== Popup (modal) ===== */
-.modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.35);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    z-index: 999;
-}
-.modal-overlay.open { display:flex; }
-
-.modal {
-    width: min(850px, 100%);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    overflow: hidden;
-}
-.modal-head {
-    padding: 18px 22px;
-    border-bottom: 1px solid var(--border-color);
-}
-.modal-head h2 { margin:0; }
-.modal-head p { margin:6px 0 0; color:#666; }
-
-.modal-body { padding: 22px; }
-
-.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-group { margin-bottom: 14px; }
-.form-group label { display:block; font-weight:700; margin-bottom:6px; }
-.form-group input, .form-group textarea {
-    width:100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-body);
-    color: var(--text-main);
-}
-.form-group textarea { min-height: 90px; resize: vertical; }
-
-.modal-foot {
-    padding: 18px 22px;
-    border-top: 1px solid var(--border-color);
-    display:flex;
-    gap: 12px;
-    justify-content: flex-end;
-}
-.link-cancel { color: var(--accent); text-decoration: underline; padding: 12px 0; }
-
-.error {
-    background:#fee2e2;
-    border:1px solid #fecaca;
-    color:#991b1b;
-    padding:10px 12px;
-    border-radius:10px;
-    margin-bottom: 12px;
-}
-</style>
 </head>
 
 <body>
@@ -275,8 +256,12 @@ body.dark-mode th { background: #1a1a1a; }
         <div class="nav-and-login">
             <nav>
                 <a href="../Html/index.html" class="nav-item">Home</a>
+                <a href="../Html/index.html/#genre-section" class="nav-item">Genre</a>
+                <a href="../Html/quiz.html" class="nav-item">Quiz</a>
+                <a href="../Html/contact.html" class="nav-item">Contact</a>
                 <a href="admin.php" class="nav-item active">Admin</a>
             </nav>
+
             <a href="../php/login.php" class="btn">Log In</a>
             <button id="night-mode-toggle" class="night-btn">🌙</button>
         </div>
@@ -290,6 +275,8 @@ body.dark-mode th { background: #1a1a1a; }
             <h1>Admin Dashboard</h1>
             <p>Beheer de boekcollectie van de bibliotheek</p>
         </div>
+
+        <!-- add=1 zorgt dat popup open gaat -->
         <a class="btn" href="admin.php?add=1">+ Nieuw Boek Toevoegen</a>
     </div>
 
@@ -321,6 +308,7 @@ body.dark-mode th { background: #1a1a1a; }
 
     <div class="panel">
         <div class="panel-head">Alle Boeken</div>
+
         <div class="table-wrap">
             <table>
                 <thead>
@@ -334,6 +322,7 @@ body.dark-mode th { background: #1a1a1a; }
                         <th style="text-align:right;">Acties</th>
                     </tr>
                 </thead>
+
                 <tbody>
                 <?php foreach ($boeken as $b): ?>
                     <tr>
@@ -344,13 +333,16 @@ body.dark-mode th { background: #1a1a1a; }
                                 <?php else: ?>
                                     <div class="thumb"></div>
                                 <?php endif; ?>
+
                                 <strong><?= htmlspecialchars($b["titel"]) ?></strong>
                             </div>
                         </td>
+
                         <td><?= htmlspecialchars($b["auteur"]) ?></td>
                         <td><?= htmlspecialchars($b["genre"] ?? "") ?></td>
                         <td><?= htmlspecialchars($b["jaar"] ?? "") ?></td>
                         <td><?= htmlspecialchars($b["isbn"]) ?></td>
+
                         <td>
                             <?php if ((int)$b["is_beschikbaar"] === 1): ?>
                                 <span class="badge ok">Beschikbaar</span>
@@ -358,37 +350,59 @@ body.dark-mode th { background: #1a1a1a; }
                                 <span class="badge no">Uitgeleend</span>
                             <?php endif; ?>
                         </td>
+
                         <td class="actions" style="text-align:right;">
+                            <!-- edit=id opent popup met gevulde data -->
                             <a class="iconbtn" href="admin.php?edit=<?= (int)$b["id"] ?>" title="Bewerk">✏️</a>
-                            <a class="iconbtn" href="admin.php?delete=<?= (int)$b["id"] ?>"
-                               onclick="return confirm('Verwijderen?');" title="Verwijder">🗑️</a>
+
+                            <!-- delete=id verwijdert (met confirm popup) -->
+                            <a class="iconbtn"
+                               href="admin.php?delete=<?= (int)$b["id"] ?>"
+                               onclick="return confirm('Verwijderen?');"
+                               title="Verwijder">🗑️</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
+
                 <?php if (count($boeken) === 0): ?>
                     <tr><td colspan="7">Geen boeken gevonden.</td></tr>
                 <?php endif; ?>
                 </tbody>
+
             </table>
         </div>
     </div>
 
 </main>
 
-<!-- Popup -->
+
+<!-- ------------------------------------------------------------
+     POPUP (MODAL)
+     open class wordt gezet als $showModal true is
+------------------------------------------------------------- -->
 <div class="modal-overlay <?= $showModal ? "open" : "" ?>" id="modal">
     <div class="modal">
+
         <div class="modal-head">
             <h2><?= $edit ? "Boek bewerken" : "Nieuw boek toevoegen" ?></h2>
             <p>Vul de velden in en klik op Opslaan.</p>
         </div>
 
         <div class="modal-body">
+
+            <!-- Error tonen als iets fout is -->
             <?php if ($error): ?>
                 <div class="error"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
 
+            <!--
+                Form action:
+                - bij edit: admin.php?edit=ID (popup blijft open bij fout)
+                - bij add : admin.php?add=1
+            -->
             <form method="post" action="admin.php<?= $edit ? "?edit=".(int)$form["id"] : "?add=1" ?>">
+
+                <!-- Alleen bij edit sturen we verborgen id mee -->
                 <?php if ($edit): ?>
                     <input type="hidden" name="id" value="<?= (int)$form["id"] ?>">
                 <?php endif; ?>
@@ -398,6 +412,7 @@ body.dark-mode th { background: #1a1a1a; }
                         <label>Titel *</label>
                         <input name="titel" required value="<?= htmlspecialchars($form["titel"]) ?>">
                     </div>
+
                     <div class="form-group">
                         <label>Auteur *</label>
                         <input name="auteur" required value="<?= htmlspecialchars($form["auteur"]) ?>">
@@ -407,6 +422,7 @@ body.dark-mode th { background: #1a1a1a; }
                         <label>Genre</label>
                         <input name="genre" value="<?= htmlspecialchars($form["genre"]) ?>">
                     </div>
+
                     <div class="form-group">
                         <label>Jaar</label>
                         <input type="number" name="jaar" value="<?= htmlspecialchars((string)$form["jaar"]) ?>">
@@ -416,6 +432,7 @@ body.dark-mode th { background: #1a1a1a; }
                         <label>ISBN *</label>
                         <input name="isbn" required value="<?= htmlspecialchars($form["isbn"]) ?>">
                     </div>
+
                     <div class="form-group">
                         <label>Afbeelding URL</label>
                         <input name="afbeelding_url" value="<?= htmlspecialchars($form["afbeelding_url"]) ?>">
@@ -437,6 +454,7 @@ body.dark-mode th { background: #1a1a1a; }
                     <button class="btn" type="submit"><?= $edit ? "Opslaan" : "Toevoegen" ?></button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
