@@ -80,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Bibliotheek Zoetermeer - Registreren</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
+<body class="dark-mode">
+
 <header>
     <div class="container header-content">
         <div class="logo-wrapper">

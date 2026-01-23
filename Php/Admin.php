@@ -258,8 +258,10 @@ $form = [
                 <a href="../Html/index.html" class="nav-item">Home</a>
                 <a href="../Html/index.html/#genre-section" class="nav-item">Genre</a>
                 <a href="../Html/quiz.html" class="nav-item">Quiz</a>
+                 <a href="lenen.html" class="nav-item">Lenen</a>
                 <a href="../Html/contact.html" class="nav-item">Contact</a>
                 <a href="admin.php" class="nav-item active">Admin</a>
+                 
             </nav>
 
             <a href="../php/login.php" class="btn">Log In</a>
