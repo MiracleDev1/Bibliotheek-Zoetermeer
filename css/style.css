@@ -1,5 +1,5 @@
 /* ================================
-   VARIABELEN & NIGHT MODE
+    VARIABELEN & NIGHT MODE
 ================================ */
 :root {
     --bg-body: #f9f9f9;
@@ -20,7 +20,7 @@ body.dark-mode {
 }
 
 /* ================================
-   BASIS STYLES
+    BASIS STYLES
 ================================ */
 html {
     scroll-behavior: smooth;
@@ -47,7 +47,7 @@ body {
 }
 
 /* ================================
-   HEADER & NAVIGATIE
+    HEADER & NAVIGATIE
 ================================ */
 header {
     border-bottom: 1px solid var(--border-color);
@@ -55,6 +55,7 @@ header {
     display: flex;
     align-items: center;
     transition: 0.3s;
+    background: var(--header-bg);
 }
 
 .header-content {
@@ -112,7 +113,7 @@ nav {
 }
 
 /* ================================
-   NIGHT MODE KNOP
+    NIGHT MODE KNOP
 ================================ */
 .night-btn {
     background: none;
@@ -124,7 +125,7 @@ nav {
 }
 
 /* ================================
-   KNOPPEN
+    KNOPPEN (STANDAARD)
 ================================ */
 .btn {
     background: var(--accent);
@@ -146,7 +147,63 @@ nav {
 }
 
 /* ================================
-   CAROUSEL
+    QUIZ & LENEN PROMO BOXES (ORANJE BLOKKEN)
+================================ */
+.quiz-promo-card { 
+    background: var(--accent); 
+    color: white !important; 
+    padding: 50px 60px; 
+    border-radius: 20px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.quiz-promo-card h2 { 
+    font-size: 2.2rem;
+    margin-bottom: 10px; 
+    color: white !important;
+}
+
+.quiz-promo-card p { 
+    font-size: 1.1rem;
+    margin-bottom: 25px; 
+    color: white !important;
+}
+
+/* De witte knoppen op de oranje blokken */
+.quiz-cta-btn { 
+    background: #ffffff !important; 
+    color: var(--accent) !important; 
+    padding: 15px 35px; 
+    border-radius: 10px; 
+    font-weight: bold; 
+    text-decoration: none; 
+    display: inline-block;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.quiz-cta-btn:hover { 
+    transform: scale(1.05); 
+    background: #f0f0f0 !important; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* De iconen aan de rechterkant van de box */
+.quiz-promo-card div:last-child {
+    font-size: 90px;
+    line-height: 1;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+}
+
+/* ================================
+    CAROUSEL
 ================================ */
 .carousel-container {
     display: flex;
@@ -220,7 +277,7 @@ body.dark-mode .carousel-progress {
 }
 
 /* ================================
-   GENRE GRID
+    GENRE GRID
 ================================ */
 .genre-main {
     padding: 60px 0;
@@ -254,7 +311,7 @@ body.dark-mode .carousel-progress {
 }
 
 /* ================================
-   QUIZ STYLING
+    QUIZ STYLING (PAGINA)
 ================================ */
 .quiz-box {
     max-width: 720px;
@@ -266,21 +323,19 @@ body.dark-mode .carousel-progress {
     box-shadow: 0 15px 40px rgba(0,0,0,0.12);
     text-align: center;
 }
- 
-/* Vraag */
+
 #question-text {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 40px;
 }
- 
-/* Antwoorden */
+
 .options-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
- 
+
 .option-btn {
     padding: 18px;
     font-size: 1.1rem;
@@ -292,15 +347,14 @@ body.dark-mode .carousel-progress {
     cursor: pointer;
     transition: 0.25s;
 }
- 
+
 .option-btn:hover {
     background: var(--accent);
     color: white;
     transform: translateY(-4px);
     border-color: var(--accent);
 }
- 
-/* Progress bar */
+
 .progress-bar {
     height: 12px;
     width: 100%;
@@ -309,11 +363,11 @@ body.dark-mode .carousel-progress {
     overflow: hidden;
     margin-bottom: 30px;
 }
- 
+
 body.dark-mode .progress-bar {
     background: rgba(255,255,255,0.15);
 }
- 
+
 #progress-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--accent), #ffb347);
@@ -321,44 +375,24 @@ body.dark-mode .progress-bar {
     transition: width 0.3s ease;
     border-radius: 999px;
 }
- 
-/* Resultaat */
-.quiz-box h1 {
-    font-size: 2.5rem;
-}
- 
-.quiz-box p {
-    font-size: 1.2rem;
-}
- 
-/* Mobiel */
-@media (max-width: 700px) {
-    .options-grid {
-        grid-template-columns: 1fr;
-    }
- 
-    .quiz-box {
-        padding: 35px 25px;
-    }
-}
 
 /* ================================
-   QUIZ BUTTONS - DARK MODE
+    QUIZ BUTTONS - DARK MODE
 ================================ */
 body.dark-mode .option-btn {
-    background: #1a2a6c;        /* donkerblauw */
+    background: #1a2a6c;
     color: #ffffff;
     border-color: #2f3fa4;
 }
- 
+
 body.dark-mode .option-btn:hover {
-    background: #2f3fa4;        /* lichtere blauw bij hover */
+    background: #2f3fa4;
     border-color: #4b5fe2;
     transform: translateY(-4px);
 }
 
 /* ================================
-   LOGIN
+    LOGIN
 ================================ */
 .login-wrapper-main {
     display: flex;
@@ -397,65 +431,20 @@ body.dark-mode .option-btn:hover {
     color: var(--text-main);
 }
 
-.form-group input:focus {
-    border-color: var(--accent);
-}
-
 /* ================================
-   CONTACT HERO
+    CONTACT PAGINA
 ================================ */
 .contact-hero {
     position: relative;
     min-height: 50vh;
-
     background-image: url("../images/forum.jpg");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-
-    padding: 190px 0 60px; /* space for header */
+    padding: 190px 0 60px;
     text-align: center;
     color: white;
 }
 
-/* ===== HEADER ON CONTACT PAGE ===== */
-.contact-page header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-
-    background: rgba(255, 255, 255, 0.65); /* light transparent */
-    color: #222;
-    backdrop-filter: blur(6px);
-}
-
-/* ===== DARK MODE HEADER ===== */
-.contact-page.dark-mode header {
-    background: rgba(0, 0, 0, 0.8); /* darker transparent */
-    color: #fff;
-}
-
-/* ===== DARK MODE NAV ITEMS ===== */
-.contact-page.dark-mode .nav-item {
-    color: #fff;
-}
-
-.contact-page.dark-mode .nav-item:hover,
-.contact-page.dark-mode .nav-item.active {
-    border-bottom-color: var(--accent);
-}
-
-/* ===== CONTACT HERO TEXT ABOVE OVERLAY ===== */
-.contact-hero > * {
-    position: relative;
-    z-index: 2;
-}
-
-/* ================================
-   CONTACT GRID
-================================ */
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -464,8 +453,7 @@ body.dark-mode .option-btn:hover {
     padding-bottom: 50px;
 }
 
-.info-card,
-.form-card {
+.info-card, .form-card {
     padding: 30px;
     background: var(--bg-card);
     border-radius: 12px;
@@ -473,8 +461,7 @@ body.dark-mode .option-btn:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.form-card input,
-.form-card textarea {
+.form-card input, .form-card textarea {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
@@ -485,7 +472,38 @@ body.dark-mode .option-btn:hover {
 }
 
 /* ================================
-   FOOTER
+    ADMIN PANEL
+================================ */
+.admin-header-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 22px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ================================
+    FOOTER
 ================================ */
 footer {
     background: var(--bg-card);
@@ -501,202 +519,19 @@ footer {
 }
 
 /* ================================
-   SECTION DIVIDER
+    MOBILITEIT (RESPONSIVE)
 ================================ */
-.section-divider {
-    width: 700px;
-    height: 7px;
-    margin: 40px auto;
-    background: var(--accent);
-    border-radius: 10px;
-    border: none;
-}
-
-/* ================================
-   MAP SECTION
-================================ */
-.map-section {
-    padding: 60px 0;
-    text-align: center;
-}
-
-.map-section h2 {
-    margin-bottom: 30px;
-}
-
-.map-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-/* ================================
-   GLOBAL TRANSITIONS
-================================ */
-header,
-.nav-item,
-.logo-text,
-.btn,
-.contact-hero,
-footer,
-.card,
-.genre-card {
-    transition: 0.3s;
-}
-
-/* ================================
-   ADMIN PANEL STYLES 
-================================ */
-
-.admin-main { padding: 50px 0; }
-.admin-header-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    padding: 28px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    margin-bottom: 25px;
-}
-.admin-header-card h1 { margin:0; font-size: 34px; }
-.admin-header-card p { margin:6px 0 0; color: #666; }
-
-.stats-grid {
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-bottom: 25px;
-}
-.stat-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    padding: 22px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.stat-card .label { font-size: 14px; color:#666; }
-.stat-card .value { font-size: 34px; font-weight:700; margin-top:6px; }
-.stat-icon {
-    width:44px; height:44px; border-radius:10px;
-    display:flex; align-items:center; justify-content:center;
-    font-weight:700;
-}
-.icon-orange { background:#ffe9d5; color: var(--accent); }
-.icon-green { background:#dcfce7; color:#166534; }
-.icon-red { background:#fee2e2; color:#991b1b; }
-
-.panel {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    overflow:hidden;
-}
-.panel-head {
-    padding: 18px 22px;
-    border-bottom: 1px solid var(--border-color);
-    font-weight: 700;
-}
-.table-wrap { overflow-x:auto; }
-table { width:100%; border-collapse: collapse; }
-th, td { padding: 14px 12px; border-bottom: 1px solid var(--border-color); text-align:left; font-size: 14px; }
-th { background: #f6f6f6; font-weight:700; }
-body.dark-mode th { background: #1a1a1a; }
-
-.bookcell { display:flex; align-items:center; gap:12px; }
-.thumb {
-    width: 40px; height: 56px;
-    border-radius: 8px;
-    object-fit: cover;
-    border: 1px solid var(--border-color);
-    background: #eee;
-}
-.badge {
-    display:inline-block;
-    padding: 5px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-}
-.badge.ok { background:#dcfce7; color:#166534; }
-.badge.no { background:#fee2e2; color:#991b1b; }
-
-.actions { white-space:nowrap; }
-.iconbtn {
-    display:inline-block;
-    padding: 6px 10px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    text-decoration:none;
-    color: var(--text-main);
-    background: transparent;
-    margin-left: 6px;
-}
-.iconbtn:hover { border-color: var(--accent); }
-
-/* ===== Popup (modal) ===== */
-.modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.35);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    z-index: 999;
-}
-.modal-overlay.open { display:flex; }
-
-.modal {
-    width: min(850px, 100%);
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    overflow: hidden;
-}
-.modal-head {
-    padding: 18px 22px;
-    border-bottom: 1px solid var(--border-color);
-}
-.modal-head h2 { margin:0; }
-.modal-head p { margin:6px 0 0; color:#666; }
-
-.modal-body { padding: 22px; }
-
-.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-group { margin-bottom: 14px; }
-.form-group label { display:block; font-weight:700; margin-bottom:6px; }
-.form-group input, .form-group textarea {
-    width:100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-body);
-    color: var(--text-main);
-}
-.form-group textarea { min-height: 90px; resize: vertical; }
-
-.modal-foot {
-    padding: 18px 22px;
-    border-top: 1px solid var(--border-color);
-    display:flex;
-    gap: 12px;
-    justify-content: flex-end;
-}
-.link-cancel { color: var(--accent); text-decoration: underline; padding: 12px 0; }
-
-.error {
-    background:#fee2e2;
-    border:1px solid #fecaca;
-    color:#991b1b;
-    padding:10px 12px;
-    border-radius:10px;
-    margin-bottom: 12px;
+@media (max-width: 768px) {
+    .quiz-promo-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+    .quiz-promo-card div:last-child {
+        margin-top: 30px;
+        font-size: 70px;
+    }
+    .contact-grid, .stats-grid {
+        grid-template-columns: 1fr;
+    }
 }
