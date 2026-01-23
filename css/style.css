@@ -521,7 +521,6 @@ footer {
 /* ================================
     MOBILITEIT (RESPONSIVE)
 ================================ */
-<<<<<<< HEAD
 @media (max-width: 768px) {
     .quiz-promo-card {
         flex-direction: column;
@@ -536,7 +535,6 @@ footer {
         grid-template-columns: 1fr;
     }
 }
-=======
 .section-divider {
     width: 700px;
     height: 7px;
@@ -786,4 +784,3 @@ body.dark-mode .login-card a {
 body.dark-mode .login-card a:hover {
     text-decoration: underline;
 }
->>>>>>> efe595d06111bdba4cd17d1af32cd0535b958ea7
