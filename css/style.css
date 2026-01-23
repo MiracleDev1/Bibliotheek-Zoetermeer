@@ -700,3 +700,55 @@ body.dark-mode th { background: #1a1a1a; }
     border-radius:10px;
     margin-bottom: 12px;
 }
+/* ================================
+   LOGIN – DARK MODE SUPPORT
+================================ */
+
+/* Login card in dark mode */
+body.dark-mode .login-card {
+    background: var(--bg-card);
+    border-top-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Login titel */
+body.dark-mode .login-card h2 {
+    color: var(--text-main);
+}
+
+/* Labels */
+body.dark-mode .form-group label {
+    color: var(--text-main);
+}
+
+/* Inputs */
+body.dark-mode .form-group input {
+    background: #1a1a1a;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-mode .form-group input::placeholder {
+    color: #aaaaaa;
+}
+
+/* Focus state */
+body.dark-mode .form-group input:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+/* Error message */
+body.dark-mode .login-card div[style*="background:#ffe5e5"] {
+    background: #3a1a1a !important;
+    color: #ffb3b3 !important;
+}
+
+/* Links onder formulier */
+body.dark-mode .login-card a {
+    color: var(--accent);
+}
+
+body.dark-mode .login-card a:hover {
+    text-decoration: underline;
+}
